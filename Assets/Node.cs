@@ -3,10 +3,14 @@ using UnityEngine.UIElements;
 
 public class Node : MonoBehaviour
 {
-    //public float nodeX, nodeY;
+    public int nodeX, nodeY;
+    public bool walkable;
+
     public bool hasBeenVisited;
-    public int Heuristic;
-    public int id;
+    public int gCost;
+    public int hCost;
+    public int fCost => gCost + hCost; 
+    public Node parent;
     public SpriteRenderer _spriteRenderer;
 
 
@@ -14,9 +18,12 @@ public class Node : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    public void asdf()
+    public int GetDistance(Node nodeA, Node nodeB)
     {
-        Debug.Log("adsfasdf");
+         
+         
+
+        return Mathf.Abs(nodeA.nodeX - nodeB.nodeX) + Mathf.Abs(nodeA.nodeY - nodeB.nodeY);
     }
 
 }
