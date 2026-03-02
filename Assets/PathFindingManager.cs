@@ -140,7 +140,7 @@ public class PathFindingManager : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             int nx = n.nodeX + dx[i], ny = n.nodeY + dy[i];
-            if (nx >= 0 && nx < Size  && ny >= 0 && ny <Size)
+            if (nx >= 0 && nx < Size  && ny >= 0 && ny < Size)
             {
                 Map[nx, ny].parent = n;
                 yield return Map[nx, ny];
