@@ -33,7 +33,7 @@ public class PathFindingManager : MonoBehaviour
         //StartN._spriteRenderer.color = Color.white;
         //EndN._spriteRenderer.color = Color.black;
 
-        AStar(OpenSet);
+        StartCoroutine( (AStar(OpenSet)));
 
     }
     public void StartMap()
@@ -87,7 +87,7 @@ public class PathFindingManager : MonoBehaviour
         }
         
     }
-    public void AStar(List<Node> NodeList)
+    public IEnumerator AStar(List<Node> NodeList)
     {
      
 
@@ -118,10 +118,12 @@ public class PathFindingManager : MonoBehaviour
                 if (ClosedSet.Contains(neighbour)) continue;
 
                 int CostMoveToNeighbour = CurrentNode.gCost + 1;
+                
 
                 if(CostMoveToNeighbour < neighbour.gCost)
                 {
                     neighbour.gCost = CostMoveToNeighbour;
+                    neighbour.parent = CurrentNode;
 
                     if (!OpenSet.Contains(neighbour))
                         OpenSet.Add(neighbour);
@@ -130,6 +132,8 @@ public class PathFindingManager : MonoBehaviour
 
 
             RedrawMap();
+            CurrentNode._spriteRenderer.color = Color.black;
+            yield return new WaitForSeconds(0.1f);
         }
     }
     //un fil random de reddit suggereix una cosa aixi com una forma més optima de recorrer els veins 
@@ -139,10 +143,11 @@ public class PathFindingManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
+            //int nx = n.nodeY + dx[i], ny = n.nodeX + dy[i];
             int nx = n.nodeX + dx[i], ny = n.nodeY + dy[i];
-            if (nx >= 0 && nx < Size  && ny >= 0 && ny < Size)
+            if (nx >= 0 && nx < Size && ny >= 0 && ny < Size)
             {
-                Map[nx, ny].parent = n;
+                //Map[nx, ny].parent = n;
                 yield return Map[nx, ny];
             }
               
