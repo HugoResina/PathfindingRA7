@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PathFindingManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PathFindingManager : MonoBehaviour
     public List<Node> OpenSet = new List<Node>();
     public List<Node> ClosedSet = new List<Node>();
     public List<Node> Nodes = new List<Node>();
+    public Button StartAlgorithmButton;
     
     public Camera mainCamera;
     private void Start()
@@ -32,8 +34,7 @@ public class PathFindingManager : MonoBehaviour
         OpenSet.Add(StartN);
         //StartN._spriteRenderer.color = Color.white;
         //EndN._spriteRenderer.color = Color.black;
-
-        StartCoroutine( (AStar(OpenSet)));
+        StartAlgorithmButton.onClick.AddListener(() => StartCoroutine(AStar(OpenSet)));
 
     }
     public void StartMap()
