@@ -44,8 +44,8 @@ public class PathFindingManager : MonoBehaviour
             for(int Y = 0; Y < Size; Y++)
             {
                 Node CN = Instantiate(Node);
-                CN.nodeX = Y;
-                CN.nodeY = X;
+                CN.nodeX = X;
+                CN.nodeY = Y;
                 CN.transform.position = new Vector2(Center + CN.nodeX * 1.05f , Center + CN.nodeY * 1.05f );
                 //CN.id = CN.nodeX*Dimension + CN.nodeY;
                 Nodes.Add(CN);
@@ -55,7 +55,7 @@ public class PathFindingManager : MonoBehaviour
             }
         }
         StartN = Nodes[0];
-        EndN = Nodes[Nodes.Count - 1];
+        EndN = Nodes[Nodes.Count -1];
         RedrawMap();
         foreach (Node node in Nodes)
         {
@@ -77,7 +77,7 @@ public class PathFindingManager : MonoBehaviour
         //OpenSet[0].hasBeenVisited = true;
 
         //Debug.Log(Nodes[67].id);
-        Debug.Log("entro bucle");
+        //Debug.Log("entro bucle");
         foreach (Node n in Nodes)
         {
             
@@ -132,12 +132,13 @@ public class PathFindingManager : MonoBehaviour
             }
 
 
-            RedrawMap();
+           
             CurrentNode._spriteRenderer.color = Color.black;
             yield return new WaitForSeconds(0.1f);
+            
+            RedrawMap();
         }
     }
-    //un fil random de reddit suggereix una cosa aixi com una forma més optima de recorrer els veins 
     public IEnumerable<Node> GetNeighbours(Node n)
     {
         int[] dx = { 1, -1, 0, 0 }, dy = { 0, 0, -1, 1 };
@@ -170,5 +171,7 @@ public class PathFindingManager : MonoBehaviour
             curr._spriteRenderer.color = Color.blue;
             curr = curr.parent;
         }
+        curr._spriteRenderer.color = Color.blue;
+
     }
 }
